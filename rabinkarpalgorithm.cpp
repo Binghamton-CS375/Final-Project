@@ -14,17 +14,14 @@ using namespace std;
 /******************************************************************************/
 /*BEGIN STRUCTS****************************************************************/
 
-typedef struct{
-
-    vector<int> solution_offsets;
-
-} solution;
+//none here
 
 /*END STRUCTS******************************************************************/
 /******************************************************************************/
 /*BEGIN PROTOTYPES*************************************************************/
 
 vector<int> RabinKarpMatcher(string text, string pattern, int radix, int prime);
+int CalculatePrime(int radix);
 
 /*END PROTOTYPES***************************************************************/
 /******************************************************************************/
@@ -36,7 +33,9 @@ int main(int argc, char ** argv, char ** envp){
     string pattern = "IS";
     int radix = 256;
 
-    int prime = 271;
+    int prime = CalculatePrime(radix);
+
+    printf("prime is %d\n", prime);
 
 
     vector<int> solutions = RabinKarpMatcher(text, pattern, radix, prime);
@@ -98,6 +97,25 @@ vector<int> RabinKarpMatcher(string text, string pattern, int radix, int prime){
     }
 
     return solutions;
+}
+
+int CalculatePrime(int radix){
+
+    int prime = radix + 1;
+    int index;
+
+    while(1){
+        index = 2;
+        while((prime % index) != 0){
+            index++;
+        }
+
+        if(prime == index){
+            return prime;
+        } else {
+            prime++;
+        }
+    }
 }
 
 /*END FUNCTIONS****************************************************************/
