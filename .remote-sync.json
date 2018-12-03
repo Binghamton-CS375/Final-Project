@@ -1,0 +1,19 @@
+{
+  "logger": {
+    "title": "Remote Sync"
+  },
+  "uploadOnSave": true,
+  "useAtomicWrites": false,
+  "deleteLocal": false,
+  "hostname": "remote.cs.binghamton.edu",
+  "port": "22",
+  "target": "Desktop/CS375/FinalProject",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "vmalcev1",
+  "password": "zaq12wsxZAQ!",
+  "watch": [],
+  "transport": "scp"
+}

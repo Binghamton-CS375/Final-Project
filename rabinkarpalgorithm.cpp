@@ -6,22 +6,43 @@
 #include<iostream>
 #include<fstream>
 #include<vector>
+#include <ctime>
+#include <chrono>
+#include <ratio>
+
 /*END IMPORT STATEMENTS********************************************************/
 /******************************************************************************/
 /*BEGIN NAMESPACE**************************************************************/
 using namespace std;
+using namespace std::chrono;
 /*END NAMESPACE****************************************************************/
 /******************************************************************************/
-/*BEGIN STRUCTS****************************************************************/
+/*BEGIN TYPE DEFENITIONS*******************************************************/
 
-//none here
+typedef std::chrono::duration<double,std::milli> milliseconds_type;
 
-/*END STRUCTS******************************************************************/
+typedef struct{
+
+    vector<int> offsets;
+    double solving_time = 0;
+
+} solution;
+
+typedef struct{
+
+    int radix;
+    int prime;
+    double time;
+
+} iteration;
+
+/*END TYPE DEFENITIONS*********************************************************/
 /******************************************************************************/
 /*BEGIN PROTOTYPES*************************************************************/
 
-vector<int> RabinKarpMatcher(string text, string pattern, int radix, int prime);
+solution RabinKarpMatcher(string text, string pattern, int radix, int prime);
 int CalculatePrime(int radix);
+vector<iteration> RabinKarp(string text, string pattern);
 
 /*END PROTOTYPES***************************************************************/
 /******************************************************************************/
@@ -31,23 +52,12 @@ int main(int argc, char ** argv, char ** envp){
 
     string text = "VLAD IS HUNGRY AND VLAD IS HAPPY";
     string pattern = "IS";
-    int radix = 256;
 
-    int prime = CalculatePrime(radix);
+    vector<iteration> data = RabinKarp(text, pattern);
 
-    printf("prime is %d\n", prime);
-
-
-    vector<int> solutions = RabinKarpMatcher(text, pattern, radix, prime);
-
-
-    printf("SIZE OF %d\n", int(solutions.size()));
-
-    for(vector<int>::iterator it = solutions.begin(); it != solutions.end(); it++){
-        cout << (*it) << "\t" << text.substr((*it), pattern.length()) << endl;
-
+    for(vector<iteration>::iterator it = data.begin(); it != data.end(); it++){
+        printf("RADIX:\t%d\t| PRIME:\t%d\t| TIME: %f\n", (*it).radix ,(*it).prime ,(*it).time);
     }
-
 
     return 0;
 }
@@ -55,9 +65,40 @@ int main(int argc, char ** argv, char ** envp){
 /******************************************************************************/
 /*START FUNCTIONS**************************************************************/
 
-vector<int> RabinKarpMatcher(string text, string pattern, int radix, int prime){
+vector<iteration> RabinKarp(string text, string pattern){
 
-    vector<int> solutions;
+    int radix;
+    int prime;
+
+    vector<iteration> data;
+    iteration temp_iteration;
+    solution temp_solution;
+
+    for(radix = 4; radix <= 1024; radix = radix * 2){
+
+        prime = CalculatePrime(radix);
+
+        for(int i = 0; i < 10; i++){
+
+            temp_solution = RabinKarpMatcher(text, pattern, radix, prime);
+
+            temp_iteration = {.radix = radix, .prime = prime, .time = temp_solution.solving_time};
+            data.push_back(temp_iteration);
+
+            prime = CalculatePrime(prime);
+        }
+    }
+
+    return data;
+}
+
+
+
+solution RabinKarpMatcher(string text, string pattern, int radix, int prime){
+
+    solution solutions;
+
+    high_resolution_clock::time_point t1 = high_resolution_clock::now();
 
     int text_length = text.length();
     int pattern_length = pattern.length();
@@ -81,7 +122,7 @@ vector<int> RabinKarpMatcher(string text, string pattern, int radix, int prime){
             // printf("MATCHING PATTERN AND TEXT\n");                              //debug statement
             if(pattern.compare(text.substr((s),(pattern_length))) == 0){        //comparing pattern to text substring
                 //TODO: offset s is offset in text to find pattern
-                solutions.push_back(s);
+                solutions.offsets.push_back(s);
                 // printf("%d\n", s);                                              //debug statement
             }
         }
@@ -95,6 +136,10 @@ vector<int> RabinKarpMatcher(string text, string pattern, int radix, int prime){
             // printf("NEW TEXT VALUE: %d\n", text_value);                         //debug statement
         }
     }
+
+    high_resolution_clock::time_point t2 = high_resolution_clock::now();
+    milliseconds_type time_span = duration_cast<milliseconds_type>(t2 - t1);
+    solutions.solving_time = duration_cast<milliseconds_type>(time_span).count();
 
     return solutions;
 }
