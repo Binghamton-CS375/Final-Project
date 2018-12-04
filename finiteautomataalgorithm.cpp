@@ -40,9 +40,9 @@ typedef struct{
 /******************************************************************************/
 /*BEGIN PROTOTYPES*************************************************************/
 
-solution KMPMatcher(string text, string pattern);
-void ComputePrefixFunction(string pattern, int * preprocess_array);
-vector<iteration> KMP(string text, string pattern);
+solution FiniteAutomataMatcher(string text, string pattern);
+void ComputeTransitionFunction(string pattern, int * preprocess_array);
+vector<iteration> FiniteAutomata(string text, string pattern);
 
 /*END PROTOTYPES***************************************************************/
 /******************************************************************************/
@@ -53,8 +53,7 @@ int main(int argc, char ** argv, char ** envp){
     string text = "VLAD IS HUNGRY AND VLAD IS HAPPY";
     string pattern = "VLAD";
 
-    // printf("RUNNING KMP\n");
-    vector<iteration> data = KMP(text, pattern);
+    vector<iteration> data = FiniteAutomata(text, pattern);
 
     for(vector<iteration>::iterator it = data.begin(); it != data.end(); it++){
         printf("TIME: %f\n", (*it).time);
@@ -66,14 +65,13 @@ int main(int argc, char ** argv, char ** envp){
 /******************************************************************************/
 /*START FUNCTIONS**************************************************************/
 
-vector<iteration> KMP(string text, string pattern){
+vector<iteration> FiniteAutomata(string text, string pattern){
 
     vector<iteration> data;
     iteration temp_iteration;
     solution temp_solution;
 
-    // printf("RUNNING KMPMatcher\n");
-    temp_solution = KMPMatcher(text, pattern);
+    temp_solution = FiniteAutomataMatcher(text, pattern);
 
     temp_iteration.time = temp_solution.solving_time;
     data.push_back(temp_iteration);
@@ -82,57 +80,33 @@ vector<iteration> KMP(string text, string pattern){
 
 
 
-solution KMPMatcher(string text, string pattern){
+solution FiniteAutomataMatcher(string text, string pattern){
 
     solution solutions;
+
+    /**************************************************************************/
+    /*TIMING CODE**************************************************************/
     high_resolution_clock::time_point t1 = high_resolution_clock::now();
+    /*TIMING CODE**************************************************************/
+    /**************************************************************************/
 
-    int text_length = text.length();
-    int pattern_length = pattern.length();
-    int preprocess_array[pattern_length];
-    ComputePrefixFunction(pattern, preprocess_array);
-    int characters_matched = 0;
 
-    for(int i = 0; i < text_length; i++){
 
-        while((characters_matched > 0) and (pattern[characters_matched] != text[i])){
-            characters_matched = preprocess_array[characters_matched - 1];
-        }
 
-        if(pattern[characters_matched] == text[i]){
-            characters_matched++;
-        }
-
-        if(characters_matched == pattern_length){
-            solutions.offsets.push_back(i - (pattern_length - 1));
-            characters_matched = preprocess_array[characters_matched - 1];
-        }
-
-    }
-
+    /**************************************************************************/
+    /*TIMING CODE**************************************************************/
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
     milliseconds_type time_span = duration_cast<milliseconds_type>(t2 - t1);
     solutions.solving_time = duration_cast<milliseconds_type>(time_span).count();
+    /*TIMING CODE**************************************************************/
+    /**************************************************************************/
+
 
     return solutions;
 }
 
-void ComputePrefixFunction(string pattern, int * preprocess_array){
-    int pattern_length = pattern.length();
+ComputeTransitionFunction(){
 
-    preprocess_array[0] = 0;
-
-    int k = 0;
-
-    for(int q = 1; q < pattern_length; q++){
-        while((k > 0) and (pattern[k + 1] != pattern[q])){
-            k = preprocess_array[k];
-        }
-        if(pattern[k + 1] == pattern[q]){
-            k++;
-        }
-        preprocess_array[q] = k;
-    }
 }
 
 /*END FUNCTIONS****************************************************************/
