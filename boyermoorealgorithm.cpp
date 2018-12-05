@@ -25,7 +25,7 @@ using namespace std::chrono;
 
 typedef std::chrono::duration<double,std::milli> milliseconds_type;
 
-typedef struct{
+/*typedef struct{
 
     vector<int> offsets;
     double solving_time = 0;
@@ -38,7 +38,7 @@ typedef struct{
     int prime;
     double time;
 
-} iteration;
+    } iteration;*/
 
 /*END TYPE DEFENITIONS*********************************************************/
 /******************************************************************************/
@@ -55,7 +55,7 @@ void PreprocessGoodSuffixCase2(string pattern, int * shift, int * border_positio
 /*END PROTOTYPES***************************************************************/
 /******************************************************************************/
 /*START MAIN*******************************************************************/
-int main(int argc, char ** argv, char ** envp){
+/*int main(int argc, char ** argv, char ** envp){
 
 
     string text = "VLAD IS HUNGRY AND VLAD IS HAPPY";
@@ -68,7 +68,7 @@ int main(int argc, char ** argv, char ** envp){
     }
 
     return 0;
-}
+    }*/
 /*END MAIN*********************************************************************/
 /******************************************************************************/
 /*START FUNCTIONS**************************************************************/
