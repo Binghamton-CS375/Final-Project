@@ -51,7 +51,7 @@ int main(int argc, char ** argv, char ** envp){
 
 
     string text = "VLAD IS HUNGRY AND VLAD IS HAPPY";
-    string pattern = "IS";
+    string pattern = "I";
 
     vector<iteration> data = RabinKarp(text, pattern);
 
@@ -123,6 +123,7 @@ solution RabinKarpMatcher(string text, string pattern, int radix, int prime){
             if(pattern.compare(text.substr((s),(pattern_length))) == 0){        //comparing pattern to text substring
                 //TODO: offset s is offset in text to find pattern
                 solutions.offsets.push_back(s);
+                printf("\nOFFSET: %d\n\n", s);
                 // printf("%d\n", s);                                              //debug statement
             }
         }
