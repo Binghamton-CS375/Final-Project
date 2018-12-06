@@ -38,14 +38,14 @@ typedef struct{
     int prime;
     double time;
 
-    } iteration;*/
+} solution;*/
 
 /*END TYPE DEFENITIONS*********************************************************/
 /******************************************************************************/
 /*BEGIN PROTOTYPES*************************************************************/
 
 solution BoyerMooreMatcher(string text, string pattern);
-vector<iteration> BoyerMoore(string text, string pattern);
+vector<solution> BoyerMoore(string text, string pattern);
 
 void PreprocessBadCharacter(string pattern, int * bad_characters);
 void PreprocessGoodSuffixCase1(string pattern, int * shift, int * border_position);
@@ -61,9 +61,9 @@ void PreprocessGoodSuffixCase2(string pattern, int * shift, int * border_positio
     string text = "VLAD IS HUNGRY AND VLAD IS HAPPY";
     string pattern = "LAD";
 
-    vector<iteration> data = BoyerMoore(text, pattern);
+    vector<solution> data = BoyerMoore(text, pattern);
 
-    for(vector<iteration>::iterator it = data.begin(); it != data.end(); it++){
+    for(vector<solution>::iterator it = data.begin(); it != data.end(); it++){
         printf("TIME: %f\n", (*it).time);
     }
 
@@ -73,10 +73,9 @@ void PreprocessGoodSuffixCase2(string pattern, int * shift, int * border_positio
 /******************************************************************************/
 /*START FUNCTIONS**************************************************************/
 
-vector<iteration> BoyerMoore(string text, string pattern){
+vector<solution> BoyerMoore(string text, string pattern){
 
-    vector<iteration> data;
-    iteration temp_iteration;
+    vector<solution> data;
     solution temp_solution;
 
     temp_solution = BoyerMooreMatcher(text, pattern);
@@ -85,8 +84,7 @@ vector<iteration> BoyerMoore(string text, string pattern){
     //     printf("OFFSET: %d\n",(*it));
     // }
 
-    temp_iteration.time = temp_solution.solving_time;
-    data.push_back(temp_iteration);
+    data.push_back(temp_solution);
     return data;
 }
 
@@ -162,7 +160,7 @@ solution BoyerMooreMatcher(string text, string pattern){
     /*TIMING CODE**************************************************************/
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
     milliseconds_type time_span = duration_cast<milliseconds_type>(t2 - t1);
-    solutions.solving_time = duration_cast<milliseconds_type>(time_span).count();
+    solutions.time = duration_cast<milliseconds_type>(time_span).count();
     /*TIMING CODE**************************************************************/
     /**************************************************************************/
 

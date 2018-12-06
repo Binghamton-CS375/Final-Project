@@ -34,7 +34,7 @@ typedef struct{
     int prime;
     double time;
 
-    } iteration;*/
+    } solution;*/
 
 /*END TYPE DEFENITIONS*********************************************************/
 /******************************************************************************/
@@ -42,7 +42,7 @@ typedef struct{
 
 solution RabinKarpMatcher(string text, string pattern, int radix, int prime);
 int CalculatePrime(int radix);
-vector<iteration> RabinKarp(string text, string pattern);
+vector<solution> RabinKarp(string text, string pattern);
 
 /*END PROTOTYPES***************************************************************/
 /******************************************************************************/
@@ -53,9 +53,9 @@ vector<iteration> RabinKarp(string text, string pattern);
     string text = "VLAD IS HUNGRY AND VLAD IS HAPPY";
     string pattern = "I";
 
-    vector<iteration> data = RabinKarp(text, pattern);
+    vector<solution> data = RabinKarp(text, pattern);
 
-    for(vector<iteration>::iterator it = data.begin(); it != data.end(); it++){
+    for(vector<solution>::iterator it = data.begin(); it != data.end(); it++){
         printf("RADIX:\t%d\t| PRIME:\t%d\t| TIME: %f\n", (*it).radix ,(*it).prime ,(*it).time);
     }
 
@@ -65,14 +65,13 @@ vector<iteration> RabinKarp(string text, string pattern);
 /******************************************************************************/
 /*START FUNCTIONS**************************************************************/
 
-vector<iteration> RabinKarp(string text, string pattern){
+vector<solution> RabinKarp(string text, string pattern){
 
 
     int radix;
     int prime;
 
-    vector<iteration> data;
-    iteration temp_iteration;
+    vector<solution> data;
     solution temp_solution;
 
     for(radix = 4; radix <= 1024; radix = radix * 2){
@@ -83,8 +82,7 @@ vector<iteration> RabinKarp(string text, string pattern){
 
             temp_solution = RabinKarpMatcher(text, pattern, radix, prime);
 
-            temp_iteration = {.radix = radix, .prime = prime, .time = temp_solution.solving_time};
-            data.push_back(temp_iteration);
+            data.push_back(temp_solution);
 
             prime = CalculatePrime(prime);
         }
@@ -142,7 +140,7 @@ solution RabinKarpMatcher(string text, string pattern, int radix, int prime){
 
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
     milliseconds_type time_span = duration_cast<milliseconds_type>(t2 - t1);
-    solutions.solving_time = duration_cast<milliseconds_type>(time_span).count();
+    solutions.time = duration_cast<milliseconds_type>(time_span).count();
 
     return solutions;
 }

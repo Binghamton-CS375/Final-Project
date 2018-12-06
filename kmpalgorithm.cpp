@@ -24,17 +24,12 @@ typedef std::chrono::duration<double,std::milli> milliseconds_type;
 typedef struct{
 
     vector<int> offsets;
-    double solving_time = 0;
-
-} solution;
-
-typedef struct{
-
+    double time = 0;
     int radix;
     int prime;
-    double time;
+    string pattern;
 
-} iteration;
+} solution;
 
 /*END TYPE DEFENITIONS*********************************************************/
 /******************************************************************************/
@@ -42,7 +37,7 @@ typedef struct{
 
 solution KMPMatcher(string text, string pattern);
 void ComputePrefixFunction(string pattern, int * preprocess_array);
-vector<iteration> KMP(string text, string pattern);
+vector<solution> KMP(string text, string pattern);
 
 /*END PROTOTYPES***************************************************************/
 /******************************************************************************/
@@ -54,9 +49,9 @@ vector<iteration> KMP(string text, string pattern);
     string pattern = "VLAD";
 
     // printf("RUNNING KMP\n");
-    vector<iteration> data = KMP(text, pattern);
+    vector<solution> data = KMP(text, pattern);
 
-    for(vector<iteration>::iterator it = data.begin(); it != data.end(); it++){
+    for(vector<solution>::iterator it = data.begin(); it != data.end(); it++){
         printf("TIME: %f\n", (*it).time);
     }
 
@@ -66,17 +61,16 @@ vector<iteration> KMP(string text, string pattern);
 /******************************************************************************/
 /*START FUNCTIONS**************************************************************/
 
-vector<iteration> KMP(string text, string pattern){
+vector<solution> KMP(string text, string pattern){
 
-    vector<iteration> data;
-    iteration temp_iteration;
+    vector<solution> data;
     solution temp_solution;
 
     // printf("RUNNING KMPMatcher\n");
     temp_solution = KMPMatcher(text, pattern);
 
-    temp_iteration.time = temp_solution.solving_time;
-    data.push_back(temp_iteration);
+    data.push_back(temp_solution);
+
     return data;
 }
 
@@ -112,7 +106,7 @@ solution KMPMatcher(string text, string pattern){
 
     high_resolution_clock::time_point t2 = high_resolution_clock::now();
     milliseconds_type time_span = duration_cast<milliseconds_type>(t2 - t1);
-    solutions.solving_time = duration_cast<milliseconds_type>(time_span).count();
+    solutions.time = duration_cast<milliseconds_type>(time_span).count();
 
     return solutions;
 }
