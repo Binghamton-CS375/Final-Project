@@ -67,6 +67,7 @@ vector<iteration> RabinKarp(string text, string pattern);
 
 vector<iteration> RabinKarp(string text, string pattern){
 
+
     int radix;
     int prime;
 
@@ -114,6 +115,7 @@ solution RabinKarpMatcher(string text, string pattern, int radix, int prime){
 
     }
 
+
     // printf("PATTERN VALUE: %d\n\nTEXT VALUE: %d\n\n", pattern_value, text_value);   //debug statement
 
     for(int s = 0; s <= (text_length - pattern_length); s++){
@@ -123,7 +125,7 @@ solution RabinKarpMatcher(string text, string pattern, int radix, int prime){
             if(pattern.compare(text.substr((s),(pattern_length))) == 0){        //comparing pattern to text substring
                 //TODO: offset s is offset in text to find pattern
                 solutions.offsets.push_back(s);
-                printf("\nOFFSET: %d\n\n", s);
+                // printf("\nOFFSET: %d\n\n", s);
                 // printf("%d\n", s);                                              //debug statement
             }
         }
