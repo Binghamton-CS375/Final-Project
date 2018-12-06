@@ -10,6 +10,7 @@ all: $(OBJ)
 	$(CC) $(CFLAGS) -o $(EXC) $(OBJ)
 
 run: all
+	clear
 	./$(EXC)
 
 clean:
