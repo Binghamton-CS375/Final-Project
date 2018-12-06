@@ -10,14 +10,14 @@
 using namespace std;
 
 //Format function for command line output for debugging purposes
-void errMessage(string text){
-    int i;
-    cout << endl;
-    for(i = 0; i < 50; i ++) cout << "=";
-    cout << endl << text << endl;
-    for(i = 0; i < 50; i ++) cout << "=";
-    cout << endl << endl;
-}
+// void errMessage(string text){
+//     int i;
+//     cout << endl;
+//     for(i = 0; i < 50; i ++) cout << "=";
+//     cout << endl << text << endl;
+//     for(i = 0; i < 50; i ++) cout << "=";
+//     cout << endl << endl;
+// }
 
 int main(int argc, char ** argv){
 
@@ -54,9 +54,8 @@ int main(int argc, char ** argv){
     time1=0;
     time2=0;
     time3=0;
+
     for(x=0; x < 50; x++){
-
-
         time1+=KMP(str,words[rand()%20])[0].time;
         //time2+=RabinKarp(str,words[rand()%20])[0].time;
         time3+=BoyerMoore(str,words[rand()%20])[0].time;
@@ -70,6 +69,7 @@ int main(int argc, char ** argv){
     time1=0;
     time2=0;
     time3=0;
+
     for(x=0; x < 50; x++){
         time1+=KMP(str,sentences[rand()%5])[0].time;
         //time2+=RabinKarp(str,sentences[rand()%5])[0].time;
