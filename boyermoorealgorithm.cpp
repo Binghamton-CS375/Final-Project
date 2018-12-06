@@ -77,6 +77,8 @@ vector<solution> BoyerMoore(string text, string pattern){
 
     vector<solution> data;
     solution temp_solution;
+    temp_solution.pattern = pattern;
+
 
     temp_solution = BoyerMooreMatcher(text, pattern);
 

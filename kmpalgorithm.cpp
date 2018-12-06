@@ -65,6 +65,7 @@ vector<solution> KMP(string text, string pattern){
 
     vector<solution> data;
     solution temp_solution;
+    temp_solution.pattern = pattern;
 
     // printf("RUNNING KMPMatcher\n");
     temp_solution = KMPMatcher(text, pattern);

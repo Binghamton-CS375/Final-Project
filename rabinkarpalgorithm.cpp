@@ -73,6 +73,8 @@ vector<solution> RabinKarp(string text, string pattern){
 
     vector<solution> data;
     solution temp_solution;
+    temp_solution.pattern = pattern;
+
 
     for(radix = 4; radix <= 1024; radix = radix * 2){
 

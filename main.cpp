@@ -112,9 +112,14 @@ int main(int argc, char ** argv){
     ofstream kmpfile;
     ofstream rbfile;
     ofstream bmfile;
-    kmpfile.open ("kmpoutput.txt");
-    rbfile.open ("rboutput.txt");
-    bmfile.open ("bmoutput.txt");
+    kmpfile.open("kmpoutput.txt");
+    rbfile.open("rboutput.txt");
+    bmfile.open("bmoutput.txt");
+
+    kmpfile << endl << "Letter" << endl;
+    rbfile << endl << "Letter" << endl;
+    bmfile << endl << "Letter" << endl;
+
 
     for(x=0; x < 50; x++){
         letter[0]='a'+ rand()%26;
@@ -124,10 +129,13 @@ int main(int argc, char ** argv){
         rabin_karp_solution = RabinKarp(str,letter);
         boyer_moore_solution = BoyerMoore(str,letter);
 
-        printf("Time: %d   | Pattern Length: %d\n", kmp_solution[0].time, kmp_solution[0].pattern.length);
-        printf("Time: %d   | Pattern Length: %d\n", rabin_karp_solution[0].time, rabin_karp_solution[0].pattern.length);
-        printf("Time: %d   | Pattern Length: %d\n", booyer_moore_solution[0].time, boyer_moore_solution[0].pattern.length);
+        // printf("Time: %f   | Pattern Length: %d\n", kmp_solution[0].time, 1);
+        // printf("Time: %f   | Pattern Length: %d\n", rabin_karp_solution[0].time, 1);
+        // printf("Time: %f   | Pattern Length: %d\n", boyer_moore_solution[0].time, 1);
 
+        kmpfile << "Time:  " << kmp_solution[0].time << "\tPattern Length:  " << 1 << endl;
+        rbfile << "Time:  " << rabin_karp_solution[0].time << "\tPattern Length:  " << 1 << endl;
+        bmfile << "Time:  " << boyer_moore_solution[0].time << "\tPattern Length:  " << 1 << endl;
 
         // time0+=brute_solution[0].time;
         time1+=kmp_solution[0].time;
@@ -136,7 +144,7 @@ int main(int argc, char ** argv){
     }
 
     cout << "\t\tLETTER SEARCHES" << endl;
-    cout << "Brute force letter search average time: " << time0/50 << endl;
+    // cout << "Brute force letter search average time: " << time0/50 << endl;
     cout << "KMP single letter search average time: "<< time1/50 << endl;
     cout << "Rabin Karp single letter search average time: "<< time2/50 << endl;
     cout << "Boyer Moore single letter search average time: "<< time3/50 << endl << endl;
@@ -146,6 +154,11 @@ int main(int argc, char ** argv){
     time2=0;
     time3=0;
 
+    kmpfile << endl << "Words" << endl;
+    rbfile << endl << "Words" << endl;
+    bmfile << endl << "Words" << endl;
+
+
     for(x=0; x < 50; x++){
 
         // brute_solution = BruteForce(str,words[rand()%20]);
@@ -153,9 +166,13 @@ int main(int argc, char ** argv){
         rabin_karp_solution = RabinKarp(str,words[rand()%20]);
         boyer_moore_solution = BoyerMoore(str,words[rand()%20]);
 
-        printf("Time: %d   | Pattern Length: %d\n", kmp_solution[0].time, kmp_solution[0].pattern.length);
-        printf("Time: %d   | Pattern Length: %d\n", rabin_karp_solution[0].time, rabin_karp_solution[0].pattern.length);
-        printf("Time: %d   | Pattern Length: %d\n", booyer_moore_solution[0].time, boyer_moore_solution[0].pattern.length);
+        // printf("Time: %f   | Pattern Length: %d\n", kmp_solution[0].time, words[rand()%20]);
+        // printf("Time: %f   | Pattern Length: %d\n", rabin_karp_solution[0].time, words[rand()%20]);
+        // printf("Time: %f   | Pattern Length: %d\n", boyer_moore_solution[0].time, words[rand()%20]);
+
+        kmpfile << "Time:  " << kmp_solution[0].time << "\tPattern Length:  " << words[rand()%20] << endl;
+        rbfile << "Time:  " << rabin_karp_solution[0].time << "\tPattern Length:  " << words[rand()%20] << endl;
+        bmfile << "Time:  " << boyer_moore_solution[0].time << "\tPattern Length:  " << words[rand()%20] << endl;
 
         // time0+=brute_solution[0].time;
         time1+=kmp_solution[0].time;
@@ -164,7 +181,7 @@ int main(int argc, char ** argv){
     }
 
     cout << "\t\tWORD SEARCHES" << endl;
-    cout << "Brute force letter search average time: " << time0/50 << endl;
+    // cout << "Brute force letter search average time: " << time0/50 << endl;
     cout << "KMP word search average time: "<< time1/50 << endl;
     cout << "Rabin Karp word search average time: "<< time2/50 << endl;
     cout << "Boyer Moore word letter search average time: "<< time3/50 << endl << endl;
@@ -174,6 +191,11 @@ int main(int argc, char ** argv){
     time2=0;
     time3=0;
 
+    kmpfile << endl << "Sentances" << endl;
+    rbfile << endl << "Sentances" << endl;
+    bmfile << endl << "Sentances" << endl;
+
+
     for(x=0; x < 50; x++){
 
         // brute_solution = BruteForce(str,sentences[rand()%5]);
@@ -181,9 +203,13 @@ int main(int argc, char ** argv){
         rabin_karp_solution = RabinKarp(str,sentences[rand()%5]);
         boyer_moore_solution = BoyerMoore(str,sentences[rand()%5]);
 
-        printf("Time: %d   | Pattern Length: %d\n", kmp_solution[0].time, kmp_solution[0].pattern.length);
-        printf("Time: %d   | Pattern Length: %d\n", rabin_karp_solution[0].time, rabin_karp_solution[0].pattern.length);
-        printf("Time: %d   | Pattern Length: %d\n", booyer_moore_solution[0].time, boyer_moore_solution[0].pattern.length);
+        // printf("Time: %f   | Pattern Length: %d\n", kmp_solution[0].time, sentences[rand()%5].length());
+        // printf("Time: %f   | Pattern Length: %d\n", rabin_karp_solution[0].time, sentences[rand()%5].length());
+        // printf("Time: %f   | Pattern Length: %d\n", boyer_moore_solution[0].time, sentences[rand()%5].length());
+
+        kmpfile << "Time:  " << kmp_solution[0].time << "\tPattern Length:  " << sentences[rand()%5].length() << endl;
+        rbfile << "Time:  " << rabin_karp_solution[0].time << "\tPattern Length:  " << sentences[rand()%5].length() << endl;
+        bmfile << "Time:  " << boyer_moore_solution[0].time << "\tPattern Length:  " << sentences[rand()%5].length() << endl;
 
         // time0+=brute_solution[0].time;
         time1+=kmp_solution[0].time;
@@ -192,13 +218,16 @@ int main(int argc, char ** argv){
     }
 
     cout << "\t\tSENTANCES SEARCHES" << endl;
-    cout << "Brute force letter search average time: " << time0/50 << endl;
+    // cout << "Brute force letter search average time: " << time0/50 << endl;
     cout << "KMP sentence search average time: "<< time1/50 << endl;
     cout << "Rabin Karp sentence search average time: "<< time2/50 << endl;
     cout << "Boyer Moore sentence search average time: "<< time3/50 << endl << endl;
 
 
-    myfile.close();
+    kmpfile.close();
+    rbfile.close();
+    bmfile.close();
+
 
     /*
   string str2="The quick dog jumped over the lazy fox";
