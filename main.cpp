@@ -29,22 +29,64 @@ int main(int argc, char ** argv){
   std::cout << "Rabin Karp single letter search average time: "<< time2/50 << std::endl;
   std::cout << "Boyer Moore single letter search average time: "<< time3/50 << std::endl;
   time1=0;
+  time2=0;
+  time3=0;
   for(x=0;x<50;x++){
     time1+=KMP(words[rand()%20],str)[0].time;
-    time2+=RabinKarp(words[rand()%20],str)[0].time;
+    //time2+=RabinKarp(words[rand()%20],str)[0].time;
     time3+=BoyerMoore(words[rand()%20],str)[0].time;
   }
   std::cout << "KMP word search average time: "<< time1/50 << std::endl;
   std::cout << "Rabin Karp word search average time: "<< time2/50 << std::endl;
   std::cout << "Boyer Moore word letter search average time: "<< time3/50 << std::endl;
   time1=0;
+  time2=0;
+  time3=0;
   for(x=0;x<50;x++){
     time1+=KMP(sentences[rand()%5],str)[0].time;
-    time2+=RabinKarp(sentences[rand()%20],str)[0].time;
-    time3+=BoyerMoore(sentences[rand()%20],str)[0].time;
+    //time2+=RabinKarp(sentences[rand()%5],str)[0].time;
+    time3+=BoyerMoore(sentences[rand()%5],str)[0].time;
   }
   std::cout << "KMP sentence search average time: "<< time1/50 << std::endl;
   std::cout << "Rabin Karp sentence search average time: "<< time2/50 << std::endl;
   std::cout << "Boyer Moore sentence search average time: "<< time3/50 << std::endl;
+
+  std::string str2="The quick dog jumped over the lazy fox";
+  std::vector<std::string> words2={"dog","cat","th"," f","jump","do","zebo"};
+  std::vector<std::string> sentences2={"The quick dog jumped over the lazy fox","whats up"};
+  time1=0;
+  time2=0;
+  time3=0;
+  for(x=0;x<10000;x++){
+    letter[0]='a'+ rand()%26;
+    time1+=KMP(letter,str2)[0].time;
+    time2+=RabinKarp(letter,str2)[0].time;
+    time3+=BoyerMoore(letter,str2)[0].time;
+  }
+  std::cout << "KMP single letter search average time: "<< time1 << std::endl;
+  std::cout << "Rabin Karp single letter search average time: "<< time2 << std::endl;
+  std::cout << "Boyer Moore single letter search average time: "<< time3 << std::endl;
+  time1=0;
+  time2=0;
+  time3=0;
+  for(x=0;x<10000;x++){
+    time1+=KMP(words[rand()%7],str2)[0].time;
+    time2+=RabinKarp(words[rand()%7],str2)[0].time;
+    time3+=BoyerMoore(words[rand()%7],str2)[0].time;
+  }
+  std::cout << "KMP word search average time: "<< time1 << std::endl;
+  std::cout << "Rabin Karp word search average time: "<< time2 << std::endl;
+  std::cout << "Boyer Moore word letter search average time: "<< time3 << std::endl;
+  time1=0;
+  time2=0;
+  time3=0;
+  for(x=0;x<10000;x++){
+    time1+=KMP(sentences[rand()%2],str2)[0].time;
+    time2+=RabinKarp(sentences[rand()%2],str2)[0].time;
+    time3+=BoyerMoore(sentences[rand()%2],str2)[0].time;
+  }
+  std::cout << "KMP sentence search average time: "<< time1 << std::endl;
+  std::cout << "Rabin Karp sentence search average time: "<< time2 << std::endl;
+  std::cout << "Boyer Moore sentence search average time: "<< time3 << std::endl;
 }
 			       
